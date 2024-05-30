@@ -4,6 +4,7 @@ import "react-native-gesture-handler";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { routes } from './src/route/routes';
 import MenuPage from "./src/view/pages/Menu";
+import StickyFlatListPage from './src/view/pages/StickyFlatList';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name={routes.menu} component={MenuPage} />
+          <Stack.Screen name={routes.stickyFlatList} component={StickyFlatListPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
