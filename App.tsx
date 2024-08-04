@@ -6,6 +6,7 @@ import { routes } from './src/route/routes';
 import MenuPage from "./src/view/pages/Menu";
 import StickyFlatListPage from './src/view/pages/StickyFlatList';
 import StepperPage from './src/view/pages/Stepper';
+import ModalPage from './src/view/pages/Modal';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
           <Stack.Screen name={routes.menu} component={MenuPage} />
           <Stack.Screen name={routes.stickyFlatList} component={StickyFlatListPage} />
           <Stack.Screen name={routes.stepper} component={StepperPage} />
+          <Stack.Screen name={routes.modal} component={ModalPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

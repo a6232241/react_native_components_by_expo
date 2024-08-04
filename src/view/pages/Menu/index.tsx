@@ -11,6 +11,7 @@ export default function MenuPage() {
       <StatusBar style="auto" />
       <Item title='Go to StickyFlatList' onPress={() => navigation.push(routes.stickyFlatList)} />
       <Item title='Go to Stepper' onPress={() => navigation.push(routes.stepper)} />
+      <Item title='Go to Modal' onPress={() => navigation.push(routes.modal)} />
     </View>
   );
 }
