@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Animated, Text, View } from "react-native";
+import { useEffect, useRef, useState } from 'react';
+import { Animated, RefreshControl, Text, View } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { headerHeight, stickyBgColor, stickyHeight } from '../uiHelper';
 import Background from './Background';
@@ -26,6 +26,15 @@ const StickyHeader = () => {
 export const Content = () => {
   const { onScroll, styles: stickyFlatListStyles } = useStickyFlatListContext();
   const listRef = useRef<Animated.FlatList<any> | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+    }
+  }, [isLoading]);
 
   return (
     <StickyFlatList
@@ -49,6 +58,13 @@ export const Content = () => {
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
           </View>
         )}
+        refreshControl={
+          <RefreshControl
+            tintColor='white'
+            refreshing={isLoading}
+            onRefresh={() => setIsLoading(true)}
+          />
+        }
       />
     </StickyFlatList>
   );
