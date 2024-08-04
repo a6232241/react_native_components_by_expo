@@ -15,7 +15,7 @@ const Item = ({ title, style, ...props }: { title: string; } & TouchableHighligh
         paddingHorizontal: 20,
         backgroundColor: '#ccc',
       }}>
-        <Text>{title}</Text>
+        <Text style={{ textAlign: 'center' }}>{title}</Text>
       </View>
     </TouchableHighlight>
   </View>;
