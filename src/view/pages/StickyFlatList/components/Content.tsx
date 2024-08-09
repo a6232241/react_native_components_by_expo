@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated, RefreshControl, Text, View } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { headerHeight, stickyBgColor, stickyHeight } from '../uiHelper';
-import Background from './Background';
 import StickyFlatList from 'view/components/StickyFlatList';
 import { useStickyFlatListContext } from 'view/components/StickyFlatList/Context';
+import { headerHeight, stickyBgColor, stickyHeight } from '../uiHelper';
+import Background from './Background';
 
 const Header = () => {
   const insets = useSafeAreaInsets();
@@ -37,7 +37,7 @@ export const Content = () => {
   }, [isLoading]);
 
   return (
-    <StickyFlatList
+    <StickyFlatList.Container
       HeaderComponent={<Header />}
       HeaderComponentStyle={{ height: headerHeight }}
       StickyComponent={<StickyHeader />}
@@ -45,7 +45,7 @@ export const Content = () => {
       StickyComponentOffsetBackground={stickyBgColor}
       BackgroundComponent={<Background source={'https://www.w3schools.com/w3images/mountains.jpg'} contentHeight={headerHeight} />}
     >
-      <Animated.FlatList
+      <StickyFlatList.List
         ref={listRef}
         onScroll={onScroll}
         contentContainerStyle={stickyFlatListStyles.container}
@@ -66,6 +66,7 @@ export const Content = () => {
           />
         }
       />
-    </StickyFlatList>
+    </StickyFlatList.Container>
   );
 };
+

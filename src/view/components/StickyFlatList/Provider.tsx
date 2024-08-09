@@ -12,7 +12,7 @@ type PropsType = {
 };
 
 // NOTE. styles.container, onScroll, scrollY 是給 children 裡面的 FlatList 使用的
-const StickyFlatListProvider = ({
+const Provider = ({
   children,
   headerHeight: defaultHeaderHeight,
   stickyHeight: defaultStickyHeight,
@@ -116,4 +116,4 @@ const StickyFlatListProvider = ({
   );
 };
 
-export default StickyFlatListProvider;
+export default Provider;
