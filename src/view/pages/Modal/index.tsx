@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Modal from "./components/Modal";
+import Modal from "view/components/Modal";
 import Card from "./components/Card";
 
 const ModalPage = () => {

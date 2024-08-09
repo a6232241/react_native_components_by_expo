@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text } from 'react-native';
-import Stepper from './components/Stepper';
+import Stepper from 'view/components/Stepper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const StepperPage = <T,>() => {

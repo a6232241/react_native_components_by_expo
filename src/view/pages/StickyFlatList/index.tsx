@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Content } from './components/Content';
-import StickyFlatListProvider from './components/StickyFlatList/Provider';
+import StickyFlatListProvider from 'view/components/StickyFlatList/Provider';
 import { headerHeight, stickyHeight } from './uiHelper';
 
 export default function StickyFlatListPage() {

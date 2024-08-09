@@ -3,8 +3,8 @@ import { Animated, RefreshControl, Text, View } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { headerHeight, stickyBgColor, stickyHeight } from '../uiHelper';
 import Background from './Background';
-import StickyFlatList from './StickyFlatList';
-import { useStickyFlatListContext } from './StickyFlatList/Context';
+import StickyFlatList from 'view/components/StickyFlatList';
+import { useStickyFlatListContext } from 'view/components/StickyFlatList/Context';
 
 const Header = () => {
   const insets = useSafeAreaInsets();
