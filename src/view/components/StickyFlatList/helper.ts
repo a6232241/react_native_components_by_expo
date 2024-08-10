@@ -4,14 +4,14 @@ export type IStickyFlatListStyles = {
   header: StyleProp<ViewStyle>;
   sticky: StyleProp<ViewStyle>;
   stickyOffset: StyleProp<ViewStyle>;
-  container: StyleProp<ViewStyle>;
+  list: StyleProp<ViewStyle>;
   background?: StyleProp<ViewStyle>;
 };
 
 export type StickyFlatListContextType = {
   scrollY: Animated.Value;
   styles: IStickyFlatListStyles;
-  stickyComponentOffset: number;
+  stickyVerticalOffset: number;
   setHeaderHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
   setStickyHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
   onScroll: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void);

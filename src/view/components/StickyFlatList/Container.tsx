@@ -1,79 +1,43 @@
-import React, { useCallback } from 'react';
-import { Animated, ColorValue, LayoutChangeEvent, StyleProp, View, ViewStyle } from 'react-native';
-import { useStickyFlatListContext } from './Context';
+import Provider, { PropsType as ProviderPropsType } from './Provider';
+import Content, { PropsType as ContentPropsType } from './Content';
 
-type PropsType = {
-  style?: StyleProp<ViewStyle>;
-  HeaderComponent?: JSX.Element;
-  HeaderComponentStyle?: StyleProp<ViewStyle> | undefined;
-  StickyComponent: JSX.Element;
-  StickyComponentStyle?: StyleProp<ViewStyle> | undefined;
-  StickyComponentOffsetBackground?: ColorValue;
-  children: JSX.Element;
-  BackgroundComponent?: JSX.Element;
-};
+type PropsType = ProviderPropsType & ContentPropsType;
 
-function Container({
-  style,
-  HeaderComponent,
-  HeaderComponentStyle,
-  StickyComponent,
-  StickyComponentStyle,
-  StickyComponentOffsetBackground,
+const Container = ({
   children,
-  BackgroundComponent
-}: PropsType): React.ReactNode {
-  const { styles, setHeaderHeight, setStickyHeight } = useStickyFlatListContext();
+  headerHeight,
+  stickyHeight,
+  stickyVerticalOffset,
+  backgroundZoomRatio,
 
-  const onLayoutHeaderComponent = useCallback((event: LayoutChangeEvent) => {
-    setHeaderHeight(event?.nativeEvent?.layout?.height ?? 0);
-  }, []);
-
-  const onLayoutStickyComponent = useCallback((event: LayoutChangeEvent) => {
-    setStickyHeight(event?.nativeEvent?.layout?.height ?? 0);
-  }, []);
-
+  style,
+  header,
+  headerStyle,
+  sticky,
+  stickyStyle,
+  stickyVerticalOffsetBgColor,
+  background
+}: PropsType) => {
   return (
-    <View style={[{ flex: 1, overflow: 'hidden' }, style]}>
-      {
-        BackgroundComponent &&
-        <Animated.View
-          style={[styles.background]}
-          pointerEvents={'box-none'}
-        >
-          {BackgroundComponent}
-        </Animated.View>
-      }
-
-      {
-        HeaderComponent && <Animated.View
-          style={[styles.header, HeaderComponentStyle]}
-          onLayout={onLayoutHeaderComponent}
-          pointerEvents={'box-none'}
-        >
-          {HeaderComponent}
-        </Animated.View>
-      }
-
-      <Animated.View
-        style={[styles.sticky, StickyComponentStyle]}
-        onLayout={onLayoutStickyComponent}
+    <Provider
+      headerHeight={headerHeight}
+      stickyHeight={stickyHeight}
+      stickyVerticalOffset={stickyVerticalOffset}
+      backgroundZoomRatio={backgroundZoomRatio}
+    >
+      <Content
+        style={style}
+        header={header}
+        headerStyle={headerStyle}
+        sticky={sticky}
+        stickyStyle={stickyStyle}
+        stickyVerticalOffsetBgColor={stickyVerticalOffsetBgColor}
+        background={background}
       >
-        {StickyComponent}
-      </Animated.View>
-
-      {
-        <Animated.View
-          style={[
-            styles.stickyOffset,
-            { backgroundColor: StickyComponentOffsetBackground }
-          ]}
-        />
-      }
-
-      {children}
-    </View>
+        {children}
+      </Content>
+    </Provider>
   );
-}
+};
 
 export default Container;

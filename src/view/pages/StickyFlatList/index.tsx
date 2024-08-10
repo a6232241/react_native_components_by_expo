@@ -1,20 +1,28 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StickyFlatList from 'view/components/StickyFlatList';
-import { Content } from './components/Content';
-import { headerHeight, stickyHeight } from './uiHelper';
+import { headerHeight, stickyBgColor, stickyHeight } from './uiHelper';
+import Header from './components/Header';
+import StickyHeader from './components/StickyHeader';
+import Background from './components/Background';
+import Content from './components/Content';
 
 export default function StickyFlatListPage() {
   const insets = useSafeAreaInsets();
 
   return (
-    <StickyFlatList.Provider
+    <StickyFlatList.Container
       headerHeight={headerHeight}
       stickyHeight={stickyHeight}
-      stickyComponentOffset={insets.top}
-      backgroundMaxRatio={6}
+      stickyVerticalOffset={insets.top}
+      backgroundZoomRatio={6}
+
+      header={<Header />}
+      sticky={<StickyHeader />}
+      stickyVerticalOffsetBgColor={stickyBgColor}
+      background={<Background source={'https://www.w3schools.com/w3images/mountains.jpg'} contentHeight={headerHeight} />}
     >
       <Content />
-    </StickyFlatList.Provider>
+    </StickyFlatList.Container>
   );
 }
 

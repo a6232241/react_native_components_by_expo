@@ -3,12 +3,12 @@ import { Animated, useWindowDimensions } from 'react-native';
 import StickyFlatListContext from './Context';
 import { IStickyFlatListStyles } from './helper';
 
-type PropsType = {
+export type PropsType = {
   children: React.ReactNode;
   headerHeight?: number;
   stickyHeight?: number;
-  stickyComponentOffset?: number;
-  backgroundMaxRatio?: number;
+  stickyVerticalOffset?: number;
+  backgroundZoomRatio?: number;
 };
 
 // NOTE. styles.container, onScroll, scrollY 是給 children 裡面的 FlatList 使用的
@@ -16,8 +16,8 @@ const Provider = ({
   children,
   headerHeight: defaultHeaderHeight,
   stickyHeight: defaultStickyHeight,
-  stickyComponentOffset,
-  backgroundMaxRatio = 1
+  stickyVerticalOffset,
+  backgroundZoomRatio = 1
 }: PropsType) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const [headerHeight, setHeaderHeight] = useState(defaultHeaderHeight);
@@ -50,8 +50,8 @@ const Provider = ({
         {
           translateY: scrollY.interpolate({
             extrapolate: 'clamp',
-            inputRange: [-windowHeight, heights.header - (stickyComponentOffset ?? 0)],
-            outputRange: [windowHeight, -heights.header + (stickyComponentOffset ?? 0)]
+            inputRange: [-windowHeight, heights.header - (stickyVerticalOffset ?? 0)],
+            outputRange: [windowHeight, -heights.header + (stickyVerticalOffset ?? 0)]
           })
         }
       ],
@@ -72,9 +72,9 @@ const Provider = ({
       ],
       zIndex: 2,
       width: '100%',
-      height: stickyComponentOffset ?? 0
+      height: stickyVerticalOffset ?? 0
     },
-    container: { paddingTop: heights.header + heights.sticky },
+    list: { paddingTop: heights.header + heights.sticky },
     background: {
       position: 'absolute',
       transform: [
@@ -90,7 +90,7 @@ const Provider = ({
             extrapolate: 'clamp',
             inputRange: [-windowHeight, 0],
             // NOTE. 如果手機很長，並且向下拉動的距離足夠長，可能導致背景出現在 list 的下方
-            outputRange: [backgroundMaxRatio, 1]
+            outputRange: [backgroundZoomRatio, 1]
           })
         }
       ],
@@ -108,7 +108,7 @@ const Provider = ({
     <StickyFlatListContext.Provider
       value={{
         scrollY, styles, setHeaderHeight, setStickyHeight,
-        stickyComponentOffset: stickyComponentOffset ?? 0, onScroll
+        stickyVerticalOffset: stickyVerticalOffset ?? 0, onScroll
       }}
     >
       {children}

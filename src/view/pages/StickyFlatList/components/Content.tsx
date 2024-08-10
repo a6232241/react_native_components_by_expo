@@ -1,30 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Animated, RefreshControl, Text, View } from "react-native";
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import StickyFlatList from 'view/components/StickyFlatList';
-import { useStickyFlatListContext } from 'view/components/StickyFlatList/Context';
-import { headerHeight, stickyBgColor, stickyHeight } from '../uiHelper';
-import Background from './Background';
 
-const Header = () => {
-  const insets = useSafeAreaInsets();
-  return (
-    <View style={{ paddingTop: insets.top, height: headerHeight }}>
-      <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Header</Text>
-    </View>
-  );
-};
-
-const StickyHeader = () => {
-  return (
-    <View style={{ height: stickyHeight, backgroundColor: stickyBgColor }}>
-      <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Sticky Header</Text>
-    </View>
-  );
-};
-
-export const Content = () => {
-  const { onScroll, styles: stickyFlatListStyles } = useStickyFlatListContext();
+const Content = () => {
   const listRef = useRef<Animated.FlatList<any> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,36 +15,25 @@ export const Content = () => {
   }, [isLoading]);
 
   return (
-    <StickyFlatList.Container
-      HeaderComponent={<Header />}
-      HeaderComponentStyle={{ height: headerHeight }}
-      StickyComponent={<StickyHeader />}
-      StickyComponentStyle={{ height: stickyHeight }}
-      StickyComponentOffsetBackground={stickyBgColor}
-      BackgroundComponent={<Background source={'https://www.w3schools.com/w3images/mountains.jpg'} contentHeight={headerHeight} />}
-    >
-      <StickyFlatList.List
-        ref={listRef}
-        onScroll={onScroll}
-        contentContainerStyle={stickyFlatListStyles.container}
-
-        scrollEventThrottle={16}
-        data={[...Array(100).keys()]}
-        keyExtractor={(item) => item.toString()}
-        renderItem={({ item }) => (
-          <View style={{ height: 100, backgroundColor: 'green' }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
-          </View>
-        )}
-        refreshControl={
-          <RefreshControl
-            tintColor='white'
-            refreshing={isLoading}
-            onRefresh={() => setIsLoading(true)}
-          />
-        }
-      />
-    </StickyFlatList.Container>
+    <StickyFlatList.List
+      ref={listRef}
+      scrollEventThrottle={16}
+      data={[...Array(100).keys()]}
+      keyExtractor={(item) => item.toString()}
+      renderItem={({ item }) => (
+        <View style={{ height: 100, backgroundColor: 'green' }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item}</Text>
+        </View>
+      )}
+      refreshControl={
+        <RefreshControl
+          tintColor='white'
+          refreshing={isLoading}
+          onRefresh={() => setIsLoading(true)}
+        />
+      }
+    />
   );
 };
 
+export default Content;

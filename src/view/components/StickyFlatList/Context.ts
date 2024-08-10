@@ -8,9 +8,9 @@ const defaultValue = {
     header: {},
     sticky: {},
     stickyOffset: {},
-    container: {}
+    list: {}
   },
-  stickyComponentOffset: 0,
+  stickyVerticalOffset: 0,
   setHeaderHeight: () => { },
   setStickyHeight: () => { },
   onScroll: () => { }
