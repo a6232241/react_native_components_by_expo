@@ -99,16 +99,11 @@ const Provider = ({
     }
   }), [scrollY, heights.header, heights.sticky]);
 
-  const onScroll = useCallback(Animated.event(
-    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-    { useNativeDriver: true }
-  ), [scrollY]);
-
   return (
     <StickyFlatListContext.Provider
       value={{
         scrollY, styles, setHeaderHeight, setStickyHeight,
-        stickyVerticalOffset: stickyVerticalOffset ?? 0, onScroll
+        stickyVerticalOffset: stickyVerticalOffset ?? 0
       }}
     >
       {children}

@@ -14,5 +14,4 @@ export type StickyFlatListContextType = {
   stickyVerticalOffset: number;
   setHeaderHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
   setStickyHeight: React.Dispatch<React.SetStateAction<number | undefined>>;
-  onScroll: ((event: NativeSyntheticEvent<NativeScrollEvent>) => void);
 };

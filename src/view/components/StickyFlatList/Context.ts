@@ -13,7 +13,6 @@ const defaultValue = {
   stickyVerticalOffset: 0,
   setHeaderHeight: () => { },
   setStickyHeight: () => { },
-  onScroll: () => { }
 };
 
 const StickyFlatListContext = createContext<StickyFlatListContextType>(defaultValue);

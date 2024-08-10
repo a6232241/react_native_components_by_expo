@@ -8,16 +8,19 @@ interface PropsType<ItemT> extends
 }
 
 const List = <itemT,>({ ...props }: PropsType<itemT>) => {
-  const { onScroll, styles } = useStickyFlatListContext();
+  const { styles, scrollY } = useStickyFlatListContext();
 
-  const handleScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    onScroll(event);
-    props?.onScroll?.(event);
-  }, [props?.onScroll]);
+  const onScroll = useCallback(Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+    {
+      useNativeDriver: true,
+      listener: props?.onScroll
+    }
+  ), [scrollY, props?.onScroll]);
 
   return <Animated.FlatList
     {...props}
-    onScroll={handleScroll}
+    onScroll={onScroll}
     contentContainerStyle={[props?.contentContainerStyle, styles.list]}
   />;
 };
